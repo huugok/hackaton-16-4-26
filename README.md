@@ -213,7 +213,7 @@ Mejora del modelo
 Añadir autenticación
 Integración con bases de datos
 
-Equipo
+## Equipo
 [Hugo Catalán Pastor] – *
 [Rostislav Rusev Levedovych] – *
 [Daniel Zanon Barney] – *
