@@ -120,32 +120,89 @@ El desarrollo del proyecto sigue las siguientes fases:
 
 ---
 
-## ⚡ Ejecución del proyecto
+## ⚡ Instalación y configuración del entorno
 
-### 1️⃣ Clonar repositorio
+Sigue estos pasos para ejecutar el proyecto en tu entorno local.
+
+### 📋 Requisitos previos
+
+- **Python 3.10+** ([Descargar Python](https://www.python.org/downloads/))
+- **Git** ([Descargar Git](https://git-scm.com/))
+- **pip** (incluido con Python)
+
+---
+
+### 1️⃣ Clonar el repositorio
+
 ```bash
 git clone https://github.com/huugok/hackaton-16-4-26.git
 cd hackaton-16-4-26
 ```
 
-### 2️⃣ Instalar dependencias
+---
+
+### 2️⃣ Crear entorno virtual
+
+Se recomienda usar un entorno virtual para aislar las dependencias del proyecto:
+
+```bash
+python3 -m venv venv
+```
+
+> 💡 **Tip:** El entorno virtual crea un espacio aislado con sus propios paquetes de Python.
+
+---
+
+### 3️⃣ Activar el entorno virtual
+
+**🐧 Linux / macOS:**
+```bash
+source venv/bin/activate
+```
+
+**🪟 Windows:**
+```bash
+venv\Scripts\activate
+```
+
+> Si la activación fue exitosa, verás `(venv)` al principio de tu línea de comandos.
+
+---
+
+### 4️⃣ Instalar dependencias
+
+Con el entorno virtual activado, instala todas las dependencias necesarias:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3️⃣ Ejecutar API
+**Alternativa (si tienes problemas):**
 ```bash
-uvicorn api.main:app --reload
+python3 -m pip install -r requirements.txt
 ```
 
-La API estará disponible en: `http://localhost:8000`
+---
 
-### 4️⃣ Ejecutar aplicación
+### ⚠️ Notas importantes
+
+| ⚠️ Nota | Descripción |
+|--------|-------------|
+| **Carpeta venv/** | No subas la carpeta `venv/` a tu repositorio (ya está en `.gitignore`) |
+| **Entorno activado** | Asegúrate de que el entorno esté activado antes de instalar paquetes |
+| **Actualizaciones** | Para actualizar `pip` usa: `pip install --upgrade pip` |
+
+---
+
+### 🧪 Verifica la instalación
+
+Para confirmar que todo está correctamente instalado, ejecuta:
+
 ```bash
-streamlit run app/main.py
+python --version
+pip list
 ```
 
-La aplicación web se abrirá en: `http://localhost:8501`
 
 ---
 
