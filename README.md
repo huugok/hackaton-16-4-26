@@ -94,29 +94,29 @@ hackaton-16-4-26/
 El desarrollo del proyecto sigue las siguientes fases:
 
 ### 1️⃣ Preparación de datos
-- 📥 Recopilación de datos
-- 🧹 Limpieza y preprocesamiento
-- ✅ Generación de dataset final
+- Recopilación de datos
+- Limpieza y preprocesamiento
+- Generación de dataset final
 
 ### 2️⃣ Desarrollo del modelo
-- 🔍 Selección de variables relevantes
-- 🏋️ Entrenamiento del modelo
-- 📈 Evaluación de resultados
-- 💾 Exportación del modelo (model.pkl)
+- Selección de variables relevantes
+- Entrenamiento del modelo
+- Evaluación de resultados
+- Exportación del modelo (model.pkl)
 
 ### 3️⃣ Desarrollo de la API
-- 🔗 Creación de endpoint `/predict`
-- 🧩 Integración del modelo en la API
-- 🧪 Testeo de peticiones
+- Creación de endpoint `/predict`
+- Integración del modelo en la API
+- Testeo de peticiones
 
 ### 4️⃣ Desarrollo del frontend
-- 🎨 Creación de interfaz con Streamlit
-- 📝 Captura de inputs del usuario
-- 📊 Visualización de resultados
+- Creación de interfaz con Streamlit
+- Captura de inputs del usuario
+- Visualización de resultados
 
 ### 5️⃣ Integración
-- 🔀 Conexión entre frontend y API
-- 🔄 Pruebas end-to-end
+- Conexión entre frontend y API
+- Pruebas end-to-end
 
 ---
 
