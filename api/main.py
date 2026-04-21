@@ -13,7 +13,7 @@ import models
 Base.metadata.create_all(bind=engine)
 
 # Cargar modelo IA
-model = joblib.load("../model/model.pkl") 
+#model = joblib.load("../model/model.pkl") 
 
 app = FastAPI()
 
@@ -39,9 +39,9 @@ def predict(data: InputTexto, db: Session = Depends(get_db)):
         texto_usuario = data.texto
     
         # Llamar al modelo de IA
-        respuesta_modelo = model.predict([texto_usuario]) 
-        prediccion_numerica = int(respuesta_modelo[0])
-
+        #respuesta_modelo = model.predict([texto_usuario]) 
+        #prediccion_numerica = int(respuesta_modelo[0])
+        prediccion_numerica=1
         if prediccion_numerica == 1:
             resultado = "Busca ayuda profesional"  
         elif prediccion_numerica == 0:
