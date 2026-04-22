@@ -9,6 +9,9 @@ def translate_to_english(text_es):
     return GoogleTranslator(source="es", target="en").translate(text_es)
 
 def predict_risk(text):
+    if isinstance(text, list):
+        text = text[0]
+        
     text_en = translate_to_english(text)
     vec = vectorizer.transform([text_en])
     prob = model.predict_proba(vec)[0][1] * 100
