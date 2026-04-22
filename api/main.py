@@ -6,7 +6,7 @@ import uvicorn
 import joblib
 
 # Importamos la config de base de datos y los modelos
-from database import SessionLocal, engine, Base
+from api.database import SessionLocal, engine, Base
 from api import models
 
 # Crear las tablas en la base de datos (Equivalente al Update-Database de EF)
