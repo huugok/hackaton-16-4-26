@@ -1,28 +1,42 @@
+import numpy as np
+import pandas as pd
 import joblib
-import os
-from sklearn.pipeline import make_pipeline
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics import classification_report, confusion_matrix
 
-print("Iniciando el entrenamiento del modelo...")
+#Cargamos datos
+df = pd.read_csv("data/procesed/mental_health.csv")
 
-# 1. Datos de prueba básicos
-textos = ["me siento genial", "estoy muy feliz", "tengo mucha ansiedad", "no puedo dormir me ahogo"]
-etiquetas = [0, 0, 1, 1]
+X = df["text"]
+y = df["label"]
 
-# 2. Crear y entrenar el modelo
-modelo = make_pipeline(TfidfVectorizer(), LogisticRegression())
-modelo.fit(textos, etiquetas)
+#Separamos datos
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
 
-# 3. Calcular la ruta EXACTA donde guardar el archivo
-# Esto busca la carpeta donde está este script (model/) y guarda model.pkl ahí mismo
-ruta_actual = os.path.dirname(os.path.abspath(__file__))
-ruta_guardado = os.path.join(ruta_actual, "model.pkl")
+#Convertimos palabras en números, esos números son la importancia de esa palabra en el texto
+#Nos quedaremos solo con las 5000 palabras más importantes
+#Usamos tanto palabras como bigramas
+vectorizer = TfidfVectorizer(max_features=5000, ngram_range=(1,2))
 
-# 4. Guardar el modelo
-joblib.dump(modelo, ruta_guardado)
+#Con fit aprende el vocabulario del dataset
+#Con transform convierte el texto a números
+X_train_vec = vectorizer.fit_transform(X_train)
 
-print(f"¡ÉXITO! Modelo guardado correctamente en:\n{ruta_guardado}")
-# Comprobación de peso
-peso = os.path.getsize(ruta_guardado)
-print(f"El archivo pesa: {peso} bytes (Si es mayor a 0, ¡está perfecto!)")
+#Aplicamos la tranformación del texto al test
+X_test_vec = vectorizer.transform(X_test)
+
+#Entrenamos el modelo
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train_vec, y_train)
+
+y_pred = model.predict(X_test_vec)
+
+#Evaluamos el modelo
+print("Accuracy:", model.score(X_test_vec, y_test))
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+joblib.dump(model, "model/model.pkl")
+joblib.dump(vectorizer, "model/vectorizer.pkl")
