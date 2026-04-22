@@ -7,7 +7,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 model = joblib.load(os.path.join(BASE_DIR, "model.pkl"))
 vectorizer = joblib.load(os.path.join(BASE_DIR, "vectorizer.pkl"))
  
- #Para traducir el texto de español a inglés
+ #Para traducir el texto de español a ingles
 def translate_to_english(text_es):
     return GoogleTranslator(source="es", target="en").translate(text_es)
  
