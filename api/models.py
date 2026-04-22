@@ -1,7 +1,7 @@
 # api/models.py
 from sqlalchemy import Column, Integer, String, DateTime
 from datetime import datetime
-from database import Base
+from api.database import Base
 
 class PredictionRecord(Base):
     __tablename__ = "predictions"
