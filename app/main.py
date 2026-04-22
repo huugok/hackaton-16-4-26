@@ -51,7 +51,7 @@ if st.button("Analizar"):
             else:
                 st.error(f"Error en la API. Código de estado: {response.status_code}")
     except requests.exceptions.RequestException as e:
-        st.error("No se pudo conectar con la API de predicción. Asegúrate de que Flask esté corriendo.")
+        st.error("No se pudo conectar con la API de predicción. Asegúrate de que (FastAPI) esté corriendo.")
 
 
 
