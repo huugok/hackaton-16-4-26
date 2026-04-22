@@ -1,17 +1,21 @@
 import joblib
+from deep_translator import GoogleTranslator
 
 # cargar modelo entrenado
 model = joblib.load("model/model.pkl")
 vectorizer = joblib.load("model/vectorizer.pkl")
 
+def translate_to_english(text_es):
+    return GoogleTranslator(source="es", target="en").translate(text_es)
 
 def predict_risk(text):
-    vec = vectorizer.transform([text])
+    text_en = translate_to_english(text)
+    vec = vectorizer.transform([text_en])
     prob = model.predict_proba(vec)[0][1] * 100
 
     if prob < 30:
         level = "Bajo"
-    elif prob < 70:
+    elif prob < 60:
         level = "Medio"
     else:
         level = "Alto"
@@ -20,6 +24,6 @@ def predict_risk(text):
 
 
 if __name__ == "__main__":
-    texto = "I feel very sad and hopeless lately"
+    texto = "Me siento muy triste y sin ganas de nada"
     risk, level = predict_risk(texto)
     print(f"Riesgo: {risk:.2f}% ({level})")
