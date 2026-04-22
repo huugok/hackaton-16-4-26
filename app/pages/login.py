@@ -1,18 +1,12 @@
 import streamlit as st
-import hashlib
+import os
+import requests
 
-##Para test
-USERS = {
-    "admin": "1234",
-    "hugo": "password"
-}
+API_URL = os.getenv("API_URL", "http://localhost:8000")
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
     st.session_state.username = None
-
-def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
 
 def login():
     st.title("🔐 Login")
@@ -21,13 +15,27 @@ def login():
     password = st.text_input("Contraseña", type="password")
 
     if st.button("Entrar"):
-        if username in USERS and USERS[username] == password:
-            st.session_state.logged_in = True
-            st.session_state.username = username
-            st.success("Login correcto")
-            st.rerun()
-        else:
-            st.error("Usuario o contraseña incorrectos")
+        try:
+            response = requests.post(
+                f"{API_URL}/login", 
+                json={"username": username, "password": password},
+                timeout=5
+            )
+            
+            if response.status_code == 200:
+                data = response.json()
+                st.session_state.logged_in = True
+                st.session_state.username = data.get("username", username)
+                st.success("Login correcto")
+                st.rerun()
+            else:
+                try:
+                    error_msg = response.json().get("detail", "Usuario o contraseña incorrectos")
+                except:
+                    error_msg = "Usuario o contraseña incorrectos"
+                st.error(error_msg)
+        except requests.exceptions.RequestException:
+            st.error("Error al conectar con el servidor (API).")
 
 def main_app():
     st.set_page_config(initial_sidebar_state="collapsed")

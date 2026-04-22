@@ -1,9 +1,8 @@
 import streamlit as st
-import hashlib
+import os
+import requests
 
-# Función de utilidad si en el futuro se desea integrar con la lógica de login
-def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
+API_URL = os.getenv("API_URL", "http://localhost:8000")
 
 st.set_page_config(page_title="Registro de Usuario", page_icon="📝")
 
@@ -28,8 +27,25 @@ with st.form("registro_form", clear_on_submit=True):
         elif len(new_password) < 6:
             st.warning("⚠️ La contraseña debe tener al menos 6 caracteres.")
         else:
-            # TODO: Aquí iría la lógica para guardar en base de datos o archivo
-            
-            # Simulamos el registro exitoso
-            st.success(f"✅ ¡Cuenta creada exitosamente para el usuario **{new_user}**!")
-            st.info("Ya puedes navegar a la página de Login desde el menú lateral para iniciar sesión.")
+            try:
+                response = requests.post(
+                    f"{API_URL}/register",
+                    json={
+                        "username": new_user,
+                        "email": new_email,
+                        "password": new_password
+                    },
+                    timeout=5
+                )
+                
+                if response.status_code == 200:
+                    st.success(f"✅ ¡Cuenta creada exitosamente para el usuario **{new_user}**!")
+                    st.info("Ya puedes navegar a la página de Login desde el menú lateral para iniciar sesión.")
+                else:
+                    try:
+                        error_msg = response.json().get("detail", "Error al registrar el usuario")
+                    except:
+                        error_msg = "Error al registrar el usuario"
+                    st.error(f"⚠️ {error_msg}")
+            except requests.exceptions.RequestException:
+                st.error("Error al conectar con el servidor (API).")

@@ -40,10 +40,44 @@ def get_db():
  
 class InputTexto(BaseModel):
     texto: str
+
+class UserCreate(BaseModel):
+    username: str
+    email: str
+    password: str
+
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+import hashlib
+def hash_password(password: str) -> str:
+    return hashlib.sha256(password.encode()).hexdigest()
  
 @app.get("/")
 def inicio():
     return {"mensaje": "API MindCheck funcionando ✅"}
+
+@app.post("/register")
+def register_user(user: UserCreate, db: Session = Depends(get_db)):
+    existing_user = db.query(models.User).filter((models.User.username == user.username) | (models.User.email == user.email)).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="El usuario o correo ya está registrado")
+    
+    hashed_pwd = hash_password(user.password)
+    db_user = models.User(username=user.username, email=user.email, password_hash=hashed_pwd)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return {"message": "Usuario registrado exitosamente", "username": db_user.username}
+
+@app.post("/login")
+def login_user(user: UserLogin, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.username == user.username).first()
+    if not db_user or db_user.password_hash != hash_password(user.password):
+        raise HTTPException(status_code=401, detail="Usuario o contraseña incorrectos")
+        
+    return {"message": "Login exitoso", "username": db_user.username}
  
 @app.post("/predict")
 def predict(data: InputTexto, db: Session = Depends(get_db)):
