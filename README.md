@@ -11,9 +11,9 @@
 
 ## 📋 Descripción
 
-Este proyecto consiste en el desarrollo de una solución de Inteligencia Artificial aplicada a un problema real de negocio: **[aqui el problema a solucionar]**.
+Este proyecto consiste en el desarrollo de una solución de Inteligencia Artificial aplicada a un problema real de negocio: Imposibilidad del seguimiento de pacientes con posibilidad de enfermedades mentales.
 
-La aplicación permite a los usuarios **[aqui lo que permite]**, utilizando un modelo de IA que **[explicar que hace el modelo]**.
+La aplicación permite a los usuarios tener un seguimiento en el avanze del anlisis de riegos de tener enfermedades mentales tales como depresión y ansiedad entre otras, utilizando un modelo de IA que dado una entrada en texto natural hace un predicción del riesgo del paciente.
 
 ---
 
@@ -33,17 +33,17 @@ La solución sigue una arquitectura desacoplada en **tres capas**:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  1️⃣  Usuario introduce datos en la interfaz (Streamlit)      │
-│          ⬇                                                   │
+│  1️⃣  Usuario introduce datos en la interfaz (Streamlit)     │
+│          ⬇                                                  │
 │  2️⃣  La aplicación envía la petición a la API               │
-│          ⬇                                                   │
+│          ⬇                                                  │
 │  3️⃣  La API procesa y llama al modelo de IA                 │
-│          ⬇                                                   │
+│          ⬇                                                  │
 │  4️⃣  El modelo genera una predicción                        │
-│          ⬇                                                   │
+│          ⬇                                                  │
 │  5️⃣  La API devuelve el resultado al frontend               │
-│          ⬇                                                   │
-│  6️⃣  El resultado se muestra al usuario ✅                   │
+│          ⬇                                                  │
+│  6️⃣  El resultado se muestra al usuario ✅                  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -214,13 +214,7 @@ Añadir autenticación
 Integración con bases de datos
 
 ## Equipo
-[Hugo Catalán Pastor] – *
-[Rostislav Rusev Levedovych] – *
-[Daniel Zanon Barney] – *
-[Eva Borrajo de Orozco Gandia] – *
-
-*/Tareas a definir
--Frontend
--Modelo IA
--Backend/API
--Integración / Datos
+[Hugo Catalán Pastor] – Integracion y datos
+[Rostislav Rusev Levedovych] – Frontend
+[Daniel Zanon Barney] – Frontend
+[Eva Borrajo de Orozco Gandia] – Modelo IA
