@@ -208,13 +208,10 @@ pip list
 
 ## ✨ Futuras posibles mejoras
 
-Despliegue en la nube
-Mejora del modelo
-Añadir autenticación
-Integración con bases de datos
+Despliegue en la nube, Mejora del modelo, Añadir autenticación e Integración con bases de datos.
 
 ## Equipo
-[Hugo Catalán Pastor] – Integracion y datos
-[Rostislav Rusev Levedovych] – Frontend
-[Daniel Zanon Barney] – Frontend
-[Eva Borrajo de Orozco Gandia] – Modelo IA
+-Hugo Catalán Pastor – Integracion y datos
+-Rostislav Rusev Levedovych – Frontend
+-Daniel Zanon Barney – Frontend
+-Eva Borrajo de Orozco Gandia – Modelo IA
